@@ -150,9 +150,11 @@ Function CollectADForestDetails{
     "--Forest--" | out-file $_default_log -Append
     get-adforest | out-file $_default_log -Append
     "--Other--" | out-file $_default_log -Append
-    Get-ADObject -Identity “CN=Directory Service,CN=Windows NT,CN=Services,$((Get-ADRootDSE).configurationNamingContext)” -Partition $( (Get-ADRootDSE).configurationNamingContext) -Properties * | out-file $_default_log -Append
+    Get-ADObject -Identity “CN=Directory Service,CN=Windows NT,CN=Services,$((Get-ADRootDSE).configurationNamingContext)” `
+        -Partition $( (Get-ADRootDSE).configurationNamingContext) -Properties * | out-file $_default_log -Append
     "--ldap query policy--" | out-file $_default_log -Append
-    (get-adobject -filter {objectclass -eq "queryPolicy"} -searchbase $(get-adrootdse).configurationnamingcontext -properties *).lDAPAdminLimits | out-file $_default_log -Append
+    (get-adobject -filter {objectclass -eq "queryPolicy"} -searchbase $(get-adrootdse).configurationnamingcontext -properties *).lDAPAdminLimits | `
+        out-file $_default_log -Append
 }
 Function CollectDFSRAdmin{
     [cmdletbinding()]
@@ -235,7 +237,8 @@ function CollectSecurityEventLogsNTLM{
                             -Value $eventXML.Event.EventData.Data[$i].'#text'            
                     }            
                 }    
-        $Events | Select-Object *  -ExcludeProperty Qualifiers,Properties,Message,Bookmark,KeywordsDisplayNames,MatchedQueryIds,LogonGuid,TransmittedServices,Opcode,Keywords,RecordId,ProviderId,ActivityId,RelatedActivityId  | Export-Csv $_default_log -NoTypeInformation 
+        $Events | Select-Object *  -ExcludeProperty Qualifiers,Properties,Message,Bookmark,KeywordsDisplayNames,`
+            MatchedQueryIds,LogonGuid,TransmittedServices,Opcode,Keywords,RecordId,ProviderId,ActivityId,RelatedActivityId  | Export-Csv $_default_log -NoTypeInformation 
     }
 }
 function CollectWindowsServerDetails{
@@ -264,7 +267,8 @@ function CollectWindowsServerDetails{
         write-debug "get netstat info"
         $_default_log = $_default_report_path +  "\" + $env:computername + "_netstat.csv"
         If ($(Try{get-command -name Get-NetTCPConnection -ErrorAction SilentlyContinue}Catch{$false})){
-            Get-NetTCPConnection | Group-Object -Property State, OwningProcess | Select -Property Count, Name, @{Name="ProcessName";Expression={(Get-Process -PID ($_.Name.Split(',')[-1].Trim(' '))).Name}} | Sort Count -Descending | export-csv $_default_log -NoTypeInformation 
+            Get-NetTCPConnection | Group-Object -Property State, OwningProcess | Select `
+                -Property Count, Name, @{Name="ProcessName";Expression={(Get-Process -PID ($_.Name.Split(',')[-1].Trim(' '))).Name}} | Sort Count -Descending | export-csv $_default_log -NoTypeInformation 
         }else{
             get-netstat
         }
@@ -288,9 +292,13 @@ function CollectWindowsServerDetails{
         
         write-debug "gathering file versions"
         $_default_log = $_default_report_path +  "\" + $env:computername + "_file_dll.csv"
-        get-childitem C:\windows\system32 -recurse |  where {$_.extension -eq ".dll"} | select Directory,name,extension, @{name='fileversion';expression={($_.versioninfo).fileversion}},@{name='productversion';expression={($_.versioninfo).productversion}} | export-csv $_default_log -NoTypeInformation
+        get-childitem C:\windows\system32 -recurse |  where {$_.extension -eq ".dll"} | `
+            select Directory,name,extension, @{name='fileversion';expression={($_.versioninfo).fileversion}},`
+                @{name='productversion';expression={($_.versioninfo).productversion}} | export-csv $_default_log -NoTypeInformation
         $_default_log = $_default_report_path +  "\" + $env:computername + "_file_sys.csv"
-        get-childitem C:\windows\system32 -recurse |  where {$_.extension -eq ".sys"} | select Directory,name,extension, @{name='fileversion';expression={($_.versioninfo).fileversion}},@{name='productversion';expression={($_.versioninfo).productversion}} | export-csv $_default_log -NoTypeInformation
+        get-childitem C:\windows\system32 -recurse |  where {$_.extension -eq ".sys"} |`
+             select Directory,name,extension, @{name='fileversion';expression={($_.versioninfo).fileversion}},`
+                @{name='productversion';expression={($_.versioninfo).productversion}} | export-csv $_default_log -NoTypeInformation
 
         write-debug "gathering filter drivers"  
         $_default_log = $_default_report_path +  "\" + $env:computername + "_filter_drivers.txt"
@@ -315,7 +323,8 @@ function CollectWindowsServerDetails{
 }
 function CollectServerPerformance{
     write-debug "gathering performance data"
-    ($_perf_counters | Get-Counter -MaxSamples 5 -ErrorAction SilentlyContinue).countersamples | select-object -Property timestamp, Path, InstanceName, CookedValue | foreach{
+    ($_perf_counters | Get-Counter -MaxSamples 5 -ErrorAction SilentlyContinue).countersamples | `
+        select-object -Property timestamp, Path, InstanceName, CookedValue | foreach{
     ##this calls to a custom function
     format-perf -countersample $_
     
@@ -503,4 +512,3 @@ if($(try{(Get-WindowsFeature -Name AD-Domain-Services).installed -eq $true}catch
 
     write-host "Report Can be found here $_archive"
 }
-
