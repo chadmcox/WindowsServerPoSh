@@ -1,5 +1,4 @@
-#requires -version 3
-#requires -RunAsAdministrator
+
 <#PSScriptInfo
 
 .VERSION 0.1
@@ -47,6 +46,7 @@ from the use or distribution of the Sample Code..
 
 #>
 #requires -version 3
+#requires -RunAsAdministrator
 <# 
 
 .DESCRIPTION 
