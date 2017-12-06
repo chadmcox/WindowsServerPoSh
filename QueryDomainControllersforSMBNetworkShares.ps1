@@ -61,7 +61,7 @@ $results = @()
 $domain_controllers = ((get-adforest).domains | foreach{Get-ADDomainController -filter * -server $_}).hostname
 $results = $domain_controllers | foreach{$dc = $_; Get-SmbShare -CimSession $dc} 
 $results | export-csv $default_log -NoTypeInformation
-
+cls
 write-host "Here is the share count for each DC"
-$results | group PSComputerName | select name, count
+$results | group PSComputerName | select name, count | out-host
 write-host -foregroundcolor yellow "To view results run: import-csv $default_log | out-gridview"
