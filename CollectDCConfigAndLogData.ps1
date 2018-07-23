@@ -472,6 +472,10 @@ function archive_results{
         [io.compression.zipfile]::CreateFromDirectory($source, $destination) 
     }
 }
+Function collectCheflogs{
+    $defaultFile = "$reportpath\$($env:computername)_chef-client.log"
+    Get-ChildItem -Path c:\ -Filter chef-client.log -Recurse -ErrorAction SilentlyContinue -Force | Copy-Item -Destination  -ErrorAction SilentlyContinue
+}
 #endregion
 
 
@@ -494,7 +498,7 @@ $DebugPreference = "Continue"
 
 if($(try{(Get-WindowsFeature -Name AD-Domain-Services).installed -eq $true}catch{$false})){
     write-debug "Directory Services Found"
-    CollectEventLogs
+    
     CollectRegistryValues
     CopyNetlogonLog
     CollectADReplication
@@ -506,6 +510,8 @@ if($(try{(Get-WindowsFeature -Name AD-Domain-Services).installed -eq $true}catch
     CollectSecurityEventLogsNTLM
     CollectWindowsServerDetails
     CollectServerPerformance
+    collectCheflogs
+    CollectEventLogs
 
     $_archive = $_root_report_path + "\" + $env:computername + "-ARCHIVE-$((Get-Date).ToString('MM-dd-yyyy_hh-mm-ss')).zip"
     archive_results -source $_default_report_path -destination $_archive
