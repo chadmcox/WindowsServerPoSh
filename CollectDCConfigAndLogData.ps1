@@ -479,7 +479,7 @@ Function collectCheflogs{
 #endregion
 
 
-$_perf_counters = "\Netlogon(_Total)\*","\Security System-Wide Statistics\NTLM Authentications","\Security System-Wide Statistics\Kerberos Authentications","\DirectoryServices(*)\*","\Database(lsass)\*","\NTDS\*","\Memory\*","\PhysicalDisk(*)\*","\Process(*)\*","\Processor(*)\*","\TCPv4\*","\DNS\*"
+$_perf_counters = "\Netlogon(_Total)\*","\Security System-Wide Statistics\NTLM Authentications","\Security System-Wide Statistics\Kerberos Authentications","\DirectoryServices(*)\*","\Database(lsass)\*","\NTDS\*","\Memory\*","\PhysicalDisk(*)\*","\Process(*)\*","\Processor(*)\*","\TCPv4\*","\DNS\*","\ADWS\*"
 $eventLogNames = "Application", "System", "Directory Service", "DFS Replication", "DNS Server","Windows PowerShell","Microsoft-Windows-PowerShell/Operational","Microsoft-Windows-CAPI2/Operational","Active Directory Web Services"
 
 write-debug "Creating folder structure"
