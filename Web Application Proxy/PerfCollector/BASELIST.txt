@@ -1,0 +1,16 @@
+\AD FS Proxy\*
+\Memory\Available MBytes
+\Memory\Pages/sec
+\Memory\Pool Nonpaged Bytes
+\Memory\Pool Paged Bytes
+\PhysicalDisk(*)\Current Disk Queue Length
+\PhysicalDisk(*)\Avg. Disk sec/Read
+\PhysicalDisk(*)\Avg. Disk sec/Write
+\PhysicalDisk(*)\Disk Transfers/sec
+\Processor(_Total)\% Processor Time
+\Processor(_Total)\% User Time
+\Processor(_Total)\% Privileged Time
+\TCPv4\Connection Failures
+\TCPv4\Connections Established
+\Netlogon(*)\*
+\Event Tracing for Windows Session(Eventlog-Security)\Events Logged per sec

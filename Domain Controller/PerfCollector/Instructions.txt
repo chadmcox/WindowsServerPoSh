@@ -1,0 +1,13 @@
+#On the domain controller, open powershell in admin mode
+#Make sure this location exist or use a different location and copy the two files into it.
+$source = "c:\data"
+
+logman create counter DC-Short -cf $source\BaseLIST.txt -si 00:05 -f bincirc -o $source\DC-Short.blg -a --v -max 1024
+logman start DC-Short
+logman create counter DC-Long -cf $source\PERFLIST.txt -si 15:00 -f bincirc -o $source\DC-Long.blg -a --v -max 1024
+logman start DC-Long
+
+#to stop the collectors run:
+
+logman stop DC-Short
+logman stop DC-Long

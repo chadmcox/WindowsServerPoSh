@@ -1,0 +1,83 @@
+\AD FS Proxy\*
+\Memory\% Committed Bytes In Use
+\Memory\Available MBytes
+\Memory\Cache Bytes
+\Memory\Commit Limit
+\Memory\Committed Bytes
+\Memory\Demand Zero Faults/sec
+\Memory\Free & Zero Page List Bytes
+\Memory\Free System Page Table Entries
+\Memory\Modified Page List Bytes
+\Memory\Pages Input/sec
+\Memory\Pages Output/sec
+\Memory\Pages/sec
+\Memory\Pool Nonpaged Bytes
+\Memory\Pool Paged Bytes
+\Memory\System Cache Resident Bytes
+\Memory\Transition Pages RePurposed/sec
+\Network Interface(*)\Bytes Total/sec
+\Network Interface(*)\Current Bandwidth
+\Network Interface(*)\Bytes Received/Sec
+\Network Interface(*)\Bytes Sent/sec
+\Network Interface(*)\Offloaded Connections
+\Network Interface(*)\Output Queue Length
+\Network Interface(*)\TCP Active RSC Connections
+\Network Interface(*)\TCP RSC Average Packet Size
+\Netlogon(_Total)\*
+\Paging File(*)\% Usage
+\PhysicalDisk(*)\% Idle Time
+\PhysicalDisk(*)\Avg. Disk Queue Length
+\PhysicalDisk(*)\Avg. Disk sec/Read
+\PhysicalDisk(*)\Avg. Disk sec/Write
+\PhysicalDisk(*)\Current Disk Queue Length
+\PhysicalDisk(*)\Disk Transfers/sec
+\PhysicalDisk(*)\Split IO/Sec
+\Process(*)\% Processor Time
+\Process(*)\Handle Count
+\Process(*)\ID Process
+\Process(*)\IO Data Operations/sec
+\Process(*)\IO Other Operations/sec
+\process(*)\Pool Paged Bytes
+\process(*)\Pool Nonpaged Bytes
+\Process(*)\Private Bytes
+\Process(*)\Thread Count
+\Process(*)\Working Set
+\Process(*)\Virtual Bytes
+\Processor(*)\% Idle Time
+\Processor(*)\% Privileged Time
+\Processor(*)\% Processor Time
+\Processor(*)\% User Time
+\Processor(*)\% Interrupt Time
+\Processor(*)\% DPC Time
+\Processor(*)\Interrupts/Sec
+\Processor(*)\DPC Rate
+\Processor(*)\DPCs Queued/Sec
+\Processor Information(*)\% of Maximum Frequency
+\Processor Information(*)\Parking Status
+\Redirector\Packets/sec
+\Redirector\Server Sessions
+\Redirector\Server Disconnects
+\Redirector\Server Reconnects
+\Redirector\Server Sessions Hung
+\Server\Logon Total
+\Server\Pool Nonpaged Failures
+\Server\Pool Paged Failures
+\Server\Server Sessions
+\Server Work Queues(*)\Available Work Items
+\Server Work Queues(*)\Bytes Transferred/sec
+\Server Work Queues(*)\Current Clients
+\Server Work Queues(*)\Queue Length
+\System\Context Switches/sec
+\System\Processor Queue Length
+\System\System Calls/sec
+\TCPv4\Connections Active
+\TCPv4\Connections Established
+\TCPv4\Connection Failures
+\TCPv4\Connection Reset
+\TCPv6\Connections Active
+\TCPv6\Connections Established
+\TCPv6\Connection Failures
+\TCPv6\Connection Reset
+\Security System-Wide Statistics\Kerberos Authentications
+\Security System-Wide Statistics\NTLM Authentications
+\Event Tracing for Windows Session(Eventlog-Security)\Events Logged per sec

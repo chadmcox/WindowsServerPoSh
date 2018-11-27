@@ -1,0 +1,13 @@
+#On each WAP server in the farm, open powershell in admin mode
+#Make sure this location exist or use a different location and copy the two files into it.
+$source = "c:\data"
+
+logman create counter WAP-Short -cf $source\BaseLIST.txt -si 00:05 -f bincirc -o $source\WAP-Short.blg -a --v -max 1024
+logman start WAP-Short
+logman create counter WAP-Long -cf $source\PERFLIST.txt -si 15:00 -f bincirc -o $source\WAP-Long.blg -a --v -max 1024
+logman start WAP-Long
+
+#to stop the collectors run:
+
+logman stop WAP-Short
+logman stop WAP-Long

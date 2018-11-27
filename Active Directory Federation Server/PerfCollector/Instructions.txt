@@ -1,0 +1,13 @@
+#On each ADFS server in the farm, open powershell in admin mode
+#Make sure this location exist or use a different location and copy the two files into it.
+$source = "c:\data"
+
+logman create counter ADFS-Short -cf $source\BaseLIST.txt -si 00:05 -f bincirc -o $source\ADFS-Short.blg -a --v -max 1024
+logman start ADFS-Short
+logman create counter ADFS-Long -cf $source\PERFLIST.txt -si 15:00 -f bincirc -o $source\ADFS-Long.blg -a --v -max 1024
+logman start ADFS-Long
+
+#to stop the collectors run:
+
+logman stop ADFS-Short
+logman stop ADFS-Long

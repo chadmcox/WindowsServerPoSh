@@ -1,0 +1,30 @@
+\Database(lsass)\Version Buckets Allocated
+\Database(lsass)\Sessions In Use
+\DirectoryServices(*)\ATQ Outstanding Queued Requests
+\DirectoryServices(*)\ATQ Threads LDAP
+\DirectoryServices(*)\ATQ Threads Other
+\DirectoryServices(*)\ATQ Threads Total
+\DirectoryServices(*)\DS Threads in Use
+\DirectoryServices(*)\LDAP Client Sessions
+\DirectoryServices(*)\LDAP Searches/sec
+\DirectoryServices(*)\Replication Operations Pending
+\DirectoryServices(*)\Outstanding Queue Delays
+\DirectoryServices(*)\DSNotifyQueueSize
+\Memory\Available MBytes
+\Memory\Pages/sec
+\Memory\Pool Nonpaged Bytes
+\Memory\Pool Paged Bytes
+\Netlogon(_Total)\*
+\PhysicalDisk(_total)\Current Disk Queue Length
+\PhysicalDisk(_total)\Avg. Disk sec/Read
+\PhysicalDisk(_total)\Avg. Disk sec/Write
+\PhysicalDisk(_total)\Disk Transfers/sec
+\Processor(_Total)\% Processor Time
+\Processor(_Total)\% User Time
+\Processor(_Total)\% Privileged Time
+\Security System-Wide Statistics\Kerberos Authentications
+\Security System-Wide Statistics\NTLM Authentications
+\TCPv4\Connection Failures
+\TCPv4\Connections Established
+\Netlogon(*)\*
+\Event Tracing for Windows Session(Eventlog-Security)\Events Logged per sec
