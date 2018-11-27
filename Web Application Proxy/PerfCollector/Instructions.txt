@@ -11,3 +11,8 @@ logman start WAP-Long
 
 logman stop WAP-Short
 logman stop WAP-Long
+
+
+Logman.exe create counter ADFSProxy -o "c:\perflogs\ADFSProxy.blg" -f bincirc -max 1024 -v mmddhhmm -c "\AD FS Proxy\*" "\LogicalDisk(*)\*" "\Memory\*" "\PhysicalDisk(*)\*" "\Process(*)\*" "\Processor(*)\*" "\TCPv4\*" -si 00:00:05
+Logman start ADFSProxy
+Logman.exe stop ADFSProxy
