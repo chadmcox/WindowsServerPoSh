@@ -1,0 +1,59 @@
+#Requires -Modules activedirectory
+<#PSScriptInfo
+
+.VERSION 0.1
+
+.GUID 4b43aafc-97d0-44e4-95e6-d2b729c5b449
+
+.AUTHOR Chad.Cox@microsoft.com
+    https://blogs.technet.microsoft.com/chadcox/
+    https://github.com/chadmcox
+
+.COMPANYNAME 
+
+.COPYRIGHT This Sample Code is provided for the purpose of illustration only and is not
+intended to be used in a production environment.  THIS SAMPLE CODE AND ANY
+RELATED INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.  We grant You a
+nonexclusive, royalty-free right to use and modify the Sample Code and to
+reproduce and distribute the object code form of the Sample Code, provided
+that You agree: (i) to not use Our name, logo, or trademarks to market Your
+software product in which the Sample Code is embedded; (ii) to include a valid
+copyright notice on Your software product in which the Sample Code is embedded;
+and (iii) to indemnify, hold harmless, and defend Us and Our suppliers from and
+against any claims or lawsuits, including attorneys` fees, that arise or result
+from the use or distribution of the Sample Code..
+
+.DESCRIPTION 
+ query response times get server response time
+
+#> 
+
+$results =  @()
+$log_file = "$env:userprofile\Documents\resultsDomainControllerQueryTime.csv"
+get-adforest -PipelineVariable forest | select -ExpandProperty domains |  foreach-object {$domain = $_
+    Write-host "From Domain: $domain"
+    Get-ADDomainController -filter * -server $_  -PipelineVariable domaincontroller | foreach {
+        Write-host "From Domain Controller: $($domaincontroller.hostname)"; $dc = $domaincontroller.hostname
+        $count = 0
+        $results += Measure-Command {$count = (get-adgroup -filter {admincount -eq 1}  -server $dc).count} | `
+        select @{name='RunDate';expression={get-date -format d}},`
+            @{name='DomainController';expression={$domaincontroller.hostname}}, `
+            @{name='ObjectsReurned';expression={$count}}, `
+            @{name='Minutes';expression={$_.Minutes}}, `
+            @{name='Seconds';expression={$_.Seconds}}, `
+            @{name='Milliseconds';expression={$_.Milliseconds}}
+            $count = 0
+        $results += Measure-Command {$count = (Get-ADOrganizationalUnit -filter * -server $dc).count} | `
+            select @{name='RunDate';expression={get-date -format d}},`
+            @{name='DomainController';expression={$domaincontroller.hostname}}, `
+            @{name='ObjectsReurned';expression={$count}}, `
+            @{name='Hours';expression={$_.hours}}, `
+            @{name='Minutes';expression={$_.Minutes}}, `
+            @{name='Seconds';expression={$_.Seconds}}, `
+            @{name='Milliseconds';expression={$_.Milliseconds}}
+    }
+}
+$results | Out-GridView
+$results | export-csv $log_file -notypeinformation
