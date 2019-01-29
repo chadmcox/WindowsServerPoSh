@@ -10,7 +10,7 @@ $_event_log_from = (Get-Date) - (New-TimeSpan -Day 15)
 $_servers = "adfs1","adfs2","adfs3"
 #$_servers = "corp-adfs1"
 
-$_counters = "\Processor(_total)\% Processor Time","\Memory\Available MBytes","\AD FS\*","\LogicalDisk(*)\*","Netlogon(*)\*","\TCPv4\*"
+$_counters = "\Processor(_total)\% Processor Time","\Memory\Available MBytes","\AD FS\*","\LogicalDisk(*)\*","Netlogon(*)\*","\TCPv4\*","\VM Processor(*)\*","\VM Memory(*)\*"
 $_sample = 300
 
 write-host "Collecting Performance Counters for $_sample seconds"
