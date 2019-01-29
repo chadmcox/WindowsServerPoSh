@@ -28,3 +28,5 @@
 \TCPv4\Connections Established
 \Netlogon(*)\*
 \Event Tracing for Windows Session(Eventlog-Security)\Events Logged per sec
+\VM Processor(*)\*
+\VM Memory(*)\*
