@@ -178,6 +178,14 @@ function CollectWindowsDetails{
         Get-PhysicalDisk | Get-StorageReliabilityCounter | export-csv $_default_log
         $_default_log = $_default_report_path +  "\" + $env:computername + "_Secure_Channel.csv"
         Test-ComputerSecureChannel -verbose | Add-Content $_default_log
+        $_default_log = $_default_report_path +  "\" + $env:computername + "_Network_Profile.csv"
+        get-NetConnectionProfile | select * 
+        $_default_log = $_default_report_path +  "\" + $env:computername + "_Firewall_Profiles.csv"
+        Get-NetFirewallProfile | select *
+        $_default_log = $_default_report_path +  "\" + $env:computername + "_Firewall_Profiles.csv"
+        Get-NetFirewallRule | select *
+        $_default_log = $_default_report_path +  "\" + $env:computername + "_8021x_settings.txt"
+        netsh lan show interface | Add-Content $_default_log
     }
 }
 function CollectServerPerformance{
@@ -345,7 +353,7 @@ function collect-retoredata{
 
 
 $_perf_counters = "\Memory\*","\PhysicalDisk(*)\*","\Process(*)\*","\Processor(*)\*","\TCPv4\*"
-$eventLogNames = "Application", "System", "Microsoft-Windows-CAPI2/Operational","Microsoft-Windows-NlaSvc/Operational"
+$eventLogNames = "Application", "System", "Microsoft-Windows-CAPI2/Operational","Microsoft-Windows-NlaSvc/Operational","Microsoft-Windows-NetworkProfile/Operational","Microsoft-Windows-Wired-AutoConfig/Operational","Microsoft-Windows-WLAN-AutoConfig/Operational"
 
 write-debug "Creating folder structure"
 
