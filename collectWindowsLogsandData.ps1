@@ -186,6 +186,9 @@ function CollectWindowsDetails{
         Get-NetFirewallRule | select *
         $_default_log = $_default_report_path +  "\" + $env:computername + "_8021x_settings.txt"
         netsh lan show interface | Add-Content $_default_log
+        
+        $_default_log = $_default_report_path +  "\" + $env:computername + "_bcdedit.txt"
+        bcdedit | Add-Content $_default_log
     }
 }
 function CollectServerPerformance{
