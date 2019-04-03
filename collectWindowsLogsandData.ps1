@@ -356,7 +356,7 @@ function collect-retoredata{
 
 
 $_perf_counters = "\Memory\*","\PhysicalDisk(*)\*","\Process(*)\*","\Processor(*)\*","\TCPv4\*"
-$eventLogNames = "Application", "System", "Microsoft-Windows-CAPI2/Operational","Microsoft-Windows-NlaSvc/Operational","Microsoft-Windows-NetworkProfile/Operational","Microsoft-Windows-Wired-AutoConfig/Operational","Microsoft-Windows-WLAN-AutoConfig/Operational"
+$eventLogNames = "Application", "System", "Microsoft-Windows-CAPI2/Operational","Microsoft-Windows-NlaSvc/Operational","Microsoft-Windows-NetworkProfile/Operational","Microsoft-Windows-Wired-AutoConfig/Operational","Microsoft-Windows-WLAN-AutoConfig/Operational","Microsoft-Windows-WMI-Activity/Operational"
 
 write-debug "Creating folder structure"
 
