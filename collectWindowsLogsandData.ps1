@@ -1,3 +1,4 @@
+#Requires -RunAsAdministrator
 <#PSScriptInfo
 
 .VERSION 0.1
