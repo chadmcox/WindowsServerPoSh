@@ -122,6 +122,9 @@ function CollectWindowsDetails{
         $_default_log = $_default_report_path +  "\" + $env:computername + "_ipconfig.txt"
         ipconfig /all | out-file $_default_log
         
+        $_default_log = $_default_report_path +  "\" + $env:computername + "_netsh_interface_show_interface.txt"
+        netsh interface ipv4 show interfaces | outfile $_default_log
+        
         write-debug "gather drivers"
         $_default_log = $_default_report_path +  "\" + $env:computername + "_windows_drivers.csv"
         Get-WindowsDriver -Online -All | export-csv $_default_log -NoTypeInformation
