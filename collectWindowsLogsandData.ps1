@@ -123,7 +123,13 @@ function CollectWindowsDetails{
         ipconfig /all | out-file $_default_log
         
         $_default_log = $_default_report_path +  "\" + $env:computername + "_netsh_interface_show_interface.txt"
-        netsh interface ipv4 show interfaces | outfile $_default_log
+        netsh interface ipv4 show interfaces | out-file $_default_log
+        
+        $_default_log = $_default_report_path +  "\" + $env:computername + "_netipconfig.csv"
+        Get-NetIPConfiguration -All | export-csv $_default_log -NoTypeInformation
+
+        $_default_log = $_default_report_path +  "\" + $env:computername + "_netadapter.csv"
+        Get-NetAdapter | export-csv $_default_log -NoTypeInformation
         
         write-debug "gather drivers"
         $_default_log = $_default_report_path +  "\" + $env:computername + "_windows_drivers.csv"
