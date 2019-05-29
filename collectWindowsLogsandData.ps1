@@ -117,7 +117,11 @@ function CollectWindowsDetails{
         $_default_log = $_default_report_path +  "\" + $env:computername + "_services_results.csv"
         #get-service | select name, displayname, status | export-csv $_default_log -NoTypeInformation
         Get-WmiObject win32_service | select name, displayname, description, startname, startmode, state | export-csv $_default_log -NoTypeInformation
-
+    
+        write-debug "ipconfig"
+        $_default_log = $_default_report_path +  "\" + $env:computername + "_ipconfig.txt"
+        ipconfig /all | out-file $_default_log
+        
         write-debug "gather drivers"
         $_default_log = $_default_report_path +  "\" + $env:computername + "_windows_drivers.csv"
         Get-WindowsDriver -Online -All | export-csv $_default_log -NoTypeInformation
