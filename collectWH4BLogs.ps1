@@ -68,6 +68,10 @@ CollectEventLogs -eventLogName "System" | Export-Csv $File -NoTypeInformation
 $File = "$temp_location\$($env:computername)_logs_AAD_$(get-date -f yyyy-MM-dd-HH-mm).csv"
 CollectEventLogs -eventLogName "Microsoft-Windows-AAD/Operational" | Export-Csv $File -NoTypeInformation
 
+#Microsoft-Windows-User Device Registration/Admin
+$File = "$temp_location\$($env:computername)_logs_Deive_Reg_$(get-date -f yyyy-MM-dd-HH-mm).csv"
+CollectEventLogs -eventLogName "Microsoft-Windows-User Device Registration/Admin" | Export-Csv $File -NoTypeInformation
+
 #endregion
 
 #region gather certs
