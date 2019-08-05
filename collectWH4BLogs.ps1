@@ -73,32 +73,32 @@ CollectEventLogs -eventLogName "Microsoft-Windows-AAD/Operational" | Export-Csv 
 #region gather certs
 write-host "collect certinfo"
 $File = "$temp_location\$($env:computername)_certs_currentuser_$(get-date -f yyyy-MM-dd-HH-mm).txt"
-dir Cert:\CurrentUser\My | select * | Add-Content $File
+dir Cert:\CurrentUser\My | select * | out-file $File
 
 $File = "$temp_location\$($env:computername)_certs_LocalMachine_$(get-date -f yyyy-MM-dd-HH-mm).txt"
-dir Cert:\LocalMachine\My | select * | Add-Content $File
+dir Cert:\LocalMachine\My | select * | out-file $File
 
 #endregion
 #region gather dsregcmd
 write-host "collect dsregcmd"
 $File = "$temp_location\$($env:computername)_dsregcmd_$(get-date -f yyyy-MM-dd-HH-mm).txt"
-dsregcmd /status | Add-Content $File
+dsregcmd /status | out-file $File
 
 #endregion
 
 #region gather computer info
 write-host "collect computer info"
 $File = "$temp_location\$($env:computername)_getcomputerinfo_$(get-date -f yyyy-MM-dd-HH-mm).txt"
-Get-ComputerInfo | Add-Content $File
+Get-ComputerInfo | out-file $File
 
 $File = "$temp_location\$($env:computername)_systeminfo_$(get-date -f yyyy-MM-dd-HH-mm).txt"
-systeminfo | Add-Content $File
+systeminfo | out-file $File
 
 $File = "$temp_location\$($env:computername)_gpresult_$(get-date -f yyyy-MM-dd-HH-mm).txt"
-gpresult /V | Add-Content $File
+gpresult /V | out-file $File
 
 $File = "$temp_location\$($env:computername)_gettpm_$(get-date -f yyyy-MM-dd-HH-mm).txt"
-Get-Tpm | select * | Add-Content $File
+Get-Tpm | select * | out-file $File
 
 $archive_location = "$($ENV:USERPROFILE)\Documents\$($env:computername)_WH4B_Logs_Archive_$((Get-Date).ToString('MM-dd-yyyy_hh-mm-ss')).zip"
 archiveresults -source $temp_location -destination $archive_location
