@@ -28,10 +28,10 @@ function grab-portdata{
     #region ::Format the log file 
  
     If (Test-Path C:\Temp) {} Else { New-Item C:\Temp -ItemType Directory } 
-        Get-ChildItem C:\Temp\PortExhaustion*.txt | Sort-Object CreationTime -Descending | Select -Skip 32 | Remove-Item -Force 
+        Get-ChildItem "C:\Temp\$($env:COMPUTERNAME)_PortExhaustion*.txt" | Sort-Object CreationTime -Descending | Select -Skip 32 | Remove-Item -Force 
         $Date = Get-Date -Format g 
         $DateLog = Get-Date -Format MMddyyyy\THHmmss 
-        $LogName = "PortExhaustion_$DateLog.txt" 
+        $LogName = "$($env:COMPUTERNAME)_PortExhaustion_$DateLog.txt" 
     "============================================================================================================================" | Out-File C:\Temp\$LogName 
     "                                             PORT EXHAUSTION TOOL ($Date)                                                   " | Out-File C:\Temp\$LogName -Append 
     "============================================================================================================================" | Out-File C:\Temp\$LogName -Append 
@@ -57,7 +57,14 @@ function grab-portdata{
     Get-NetTCPConnection | Select LocalAddress, LocalPort, RemoteAddress, RemotePort, State, @{l="ProcessID";e={$_.Owningprocess}}, @{l="ProcessName";e={(get-process -ID $_.Owningprocess).processname}} | ? {$_.Processname -in (($top5process).name)} | sort ProcessName | ft -GroupBy ProcessName -AutoSize  | Out-File C:\Temp\$LogName -Append 
     #endregion 
 
+    #region ::Retrieve Perf Data 
+    "----------------------------------------------------------------------------------------------------------------------------" | Out-File C:\Temp\$LogName -Append 
+    "                                              TCP CONNECTIONS/TOP 5 PROCESSES                                               " | Out-File C:\Temp\$LogName -Append 
+    $counters = @("\Processor(_total)\% Processor Time","\Memory\Available MBytes","\AD FS\*","\LogicalDisk(*)\*","Netlogon(*)\*","\TCPv4\*","\VM Processor(*)\*","\VM Memory(*)\*")
+    ($counters | get-counter).countersamples | where cookedvalue -ne 0 | ft -AutoSize | Out-File C:\Temp\$LogName -Append
+
 }
+
 
 #Create the Event Provider
 if(!(Get-EventLog –LogName Application –Source "TCPPorts")){
@@ -73,4 +80,3 @@ if($tcp_connections | where {$_.count -gt $bound_count_error}){
 else{
     write-EventLog –LogName Application –Source "TCPPorts" –EntryType Information –EventID 1 –Message "$($tcp_connections | out-string)"
 }
-
