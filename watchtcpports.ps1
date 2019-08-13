@@ -61,7 +61,7 @@ function grab-portdata{
     "----------------------------------------------------------------------------------------------------------------------------" | Out-File C:\Temp\$LogName -Append 
     "                                              TCP CONNECTIONS/TOP 5 PROCESSES                                               " | Out-File C:\Temp\$LogName -Append 
     $counters = @("\Processor(_total)\% Processor Time","\Memory\Available MBytes","\AD FS\*","\LogicalDisk(*)\*","Netlogon(*)\*","\TCPv4\*","\VM Processor(*)\*","\VM Memory(*)\*")
-    ($counters | get-counter).countersamples | where cookedvalue -ne 0 | ft -AutoSize | Out-File C:\Temp\$LogName -Append
+    ($counters | get-counter -ErrorAction SilentlyContinue).countersamples | where cookedvalue -ne 0 | ft -AutoSize | Out-File C:\Temp\$LogName -Append
 
 }
 
