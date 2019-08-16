@@ -59,9 +59,11 @@ function grab-portdata{
 
     #region ::Retrieve Perf Data 
     "----------------------------------------------------------------------------------------------------------------------------" | Out-File C:\Temp\$LogName -Append 
-    "                                              TCP CONNECTIONS/TOP 5 PROCESSES                                               " | Out-File C:\Temp\$LogName -Append 
+    "                                              Perf Counters                                              " | Out-File C:\Temp\$LogName -Append 
     $counters = @("\Processor(_total)\% Processor Time","\Memory\Available MBytes","\AD FS\*","\LogicalDisk(*)\*","Netlogon(*)\*","\TCPv4\*","\VM Processor(*)\*","\VM Memory(*)\*")
-    ($counters | get-counter -ErrorAction SilentlyContinue).countersamples | where cookedvalue -ne 0 | ft -AutoSize | Out-File C:\Temp\$LogName -Append
+    ($counters | get-counter -ErrorAction SilentlyContinue).countersamples | where cookedvalue -ne 0 | select `
+        @{n='Object';e={($_.path.split("\"))[3]}}, @{n='Counter';e={($_.path.split("\"))[4]}}, InstanceName, cookedvalue  | `
+            ft Counter,InstanceName,CookedValue -GroupBy Object | Out-File C:\Temp\$LogName -Append
 
 }
 
