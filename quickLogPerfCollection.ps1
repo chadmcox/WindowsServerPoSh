@@ -12,4 +12,4 @@ Get-WinEvent -FilterHashTable @{LogName=$_; StartTime=$((Get-Date).AddDays(-2))}
     Select-Object Machinename, TimeCreated, ID, UserId,LevelDisplayName,ProviderName, @{n= "Message";e={ ($_.Message -Replace “`r`n|`r|`n”,” ”).Trim() }} | `
         export-csv "$($ENV:Userprofile)\Documents\$($env:computername)_$(($_ -replace(" ","_")).replace("/","_"))" -NoTypeInformation
 }
-Compress-Archive -path "$($ENV:Userprofile)\Documents\$($env:computername)*.csv" -DestinationPath "$($ENV:Userprofile)\Documents\$($env:computername)_logs_$((Get-Date).ToString('MM-dd-yyyy_hh-mm-ss')).zip"
+Compress-Archive -path "$($ENV:Userprofile)\Documents\$($env:computername)*" -DestinationPath "$($ENV:Userprofile)\Documents\$($env:computername)_logs_$((Get-Date).ToString('MM-dd-yyyy_hh-mm-ss')).zip"
