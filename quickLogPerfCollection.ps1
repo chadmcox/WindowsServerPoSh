@@ -1,4 +1,5 @@
-$counter_objects = "\Netlogon(_Total)\*","\Security System-Wide Statistics\NTLM Authentications","\Security System-Wide Statistics\Kerberos Authentications","\DirectoryServices(*)\*","\Database(lsass)\*","\NTDS\*","\Memory\*","\PhysicalDisk(*)\*","\Process(*)\*","\Processor(*)\*","\TCPv4\*","\DNS\*","\ADWS\*"
+$counter_objects = "\Netlogon(_Total)\*","\Security System-Wide Statistics\NTLM Authentications","\Security System-Wide Statistics\Kerberos Authentications", `
+    "\DirectoryServices(*)\*","\Database(lsass)\*","\NTDS\*","\Memory\*","\PhysicalDisk(*)\*","\Process(*)\*","\Processor(*)\*","\TCPv4\*","\DNS\*","\ADWS\*"
 get-counter -Counter $counter_objects -pv c -MaxSamples 5 | select -ExpandProperty countersamples | select `
     @{N="Timestamp";E={$c.Timestamp}}, `
     @{N="Computer";E={($_.path -split "\\")[2]}}, `
