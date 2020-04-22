@@ -66,7 +66,7 @@ function CollectEventLogs{
         foreach ($eventLogName in $eventLogNames)
         {
             write-debug "collect Event logs $eventLogName"
-            $_event_log_from = (Get-Date) - (New-TimeSpan -Day 60)
+            $_event_log_from = (Get-Date) - (New-TimeSpan -Day 2)
             $_default_log = $_default_report_path + "\" + $env:computername + "_evt_" + $($eventLogName -replace "/","_") + ".csv"
             #Get-EventLog $eventLogName -After ((Get-Date).date).addDays(-60) | Select-Object TimeGenerated, MachineName, EventID, Source, EntryType, @{n= "Message";e={ ($_.Message -Replace “`r`n|`r|`n”,” ”).Trim() }} | Export-Csv $_default_log -NoTypeInformation 
             Get-WinEvent -FilterHashTable @{LogName=$eventLogName; StartTime=$_event_log_from} -ErrorAction SilentlyContinue | Select-Object Machinename, TimeCreated, ID, UserId,LevelDisplayName,ProviderName, @{n= "Message";e={ ($_.Message -Replace “`r`n|`r|`n”,” ”).Trim() }} | Export-Csv $_default_log -NoTypeInformation 
