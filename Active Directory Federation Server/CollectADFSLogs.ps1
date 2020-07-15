@@ -44,7 +44,7 @@ function CollectEventLogs{
             write-host "collect Event logs $eventLogName"
             $_event_log_from = (Get-Date) - (New-TimeSpan -Day 60)
             $defaultFile = $reportpath + "\" + $env:computername + "_evt_" + $($eventLogName -replace "/","_") + ".csv"
-            #Get-EventLog $eventLogName -After ((Get-Date).date).addDays(-60) | Select-Object TimeGenerated, MachineName, EventID, Source, EntryType, @{n= "Message";e={ ($_.Message -Replace “`r`n|`r|`n”,” ”).Trim() }} | Export-Csv $defaultFile -NoTypeInformation 
+            #Get-EventLog $eventLogName -After ((Get-Date).date).addDays(-3) | Select-Object TimeGenerated, MachineName, EventID, Source, EntryType, @{n= "Message";e={ ($_.Message -Replace “`r`n|`r|`n”,” ”).Trim() }} | Export-Csv $defaultFile -NoTypeInformation 
             Get-WinEvent -FilterHashTable @{LogName=$eventLogName; StartTime=$_event_log_from} -ErrorAction SilentlyContinue | Select-Object Machinename, TimeCreated, ID, UserId,LevelDisplayName,ProviderName, @{n= "Message";e={ ($_.Message -Replace “`r`n|`r|`n”,” ”).Trim() }} | Export-Csv $defaultFile -NoTypeInformation 
         }
     }
