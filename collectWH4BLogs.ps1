@@ -91,6 +91,9 @@ dsregcmd /status | out-file $File
 #endregion
 
 #region gather computer info
+$File = "$temp_location\$($env:computername)_gpresult_$(get-date -f yyyy-MM-dd-HH-mm).txt"
+gpresult /V | out-file $File
+
 write-host "collect computer info"
 $File = "$temp_location\$($env:computername)_getcomputerinfo_$(get-date -f yyyy-MM-dd-HH-mm).txt"
 Get-ComputerInfo | out-file $File
