@@ -378,7 +378,7 @@ If (!($(Try { Test-Path $reportpath } Catch { $true }))){
 
 $DebugPreference = "Continue"
 
-if($(try{(Get-WindowsFeature -Name ADFS-Federation).installed -eq $true}catch{$false})){
+
     
     CollectRegistryValues
     CollectWindowsServerDetails
@@ -389,4 +389,4 @@ if($(try{(Get-WindowsFeature -Name ADFS-Federation).installed -eq $true}catch{$f
     archive_results -source $reportpath -destination $archive
 
     write-host "Report Can be found here $_archive"
-}
+
