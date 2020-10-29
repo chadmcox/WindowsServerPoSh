@@ -363,8 +363,10 @@ function archive_results{
 #endregion
 
 
-$_perf_counters = "\AD FS Proxy\*","\AD FS Proxy\*","\Memory\*","\PhysicalDisk(*)\*","\Process(*)\*","\Processor(*)\*","\TCPv4\*"
-$eventLogNames = "Application", "Security","System","Windows PowerShell","AD FS/Admin","Microsoft-Windows-PowerShell/Operational","Microsoft-Windows-CAPI2/Operational"
+$_perf_counters = "\AD FS Proxy\*","\AD FS\*","\Memory\*","\PhysicalDisk(*)\*","\Process(*)\*","\Processor(*)\*","\TCPv4\*"
+
+#$eventLogNames = "Application", "Security","System","Windows PowerShell","AD FS/Admin","Microsoft-Windows-PowerShell/Operational","Microsoft-Windows-CAPI2/Operational"
+$eventLogNames = "Application", "System","Windows PowerShell","AD FS/Admin","Microsoft-Windows-PowerShell/Operational","Microsoft-Windows-CAPI2/Operational"
 
 write-host "Creating folder structure"
 
