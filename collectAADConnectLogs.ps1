@@ -86,7 +86,7 @@ Get-ADSyncADConnectorAccount | add-content -Path $File
 Show-ADSyncADObjectPermissions -ADobjectDN (get-aduser -ldapfilter "(&(!(admincount=*))(!(userAccountControl:1.2.840.113556.1.4.803:=2)))" | select -first 1 ).DistinguishedName |  add-content -Path $File
 
 dir "$env:ProgramData\AADConnect"  | where {$_.LastWriteTime -gt (get-date).AddDays(-15)} | foreach{
-    copy-item -Container $_.FullName  -Destination "C:\Data" -Force
+    copy-item -Container $_.FullName  -Destination $temp_location -Force
 }
 
 $archive_location = "$($ENV:USERPROFILE)\Documents\$($env:computername)_AADC_Logs_Archive_$((Get-Date).ToString('MM-dd-yyyy_hh-mm-ss')).zip"
