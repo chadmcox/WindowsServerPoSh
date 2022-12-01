@@ -1,4 +1,4 @@
-e#Require -runasadministrator
+#Require -runasadministrator
 <#PSScriptInfo
 
 .VERSION 2019.8.5
