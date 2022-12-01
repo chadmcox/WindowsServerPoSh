@@ -54,7 +54,7 @@ function CollectEventLogs{
     write-host "collect Event logs $eventLogName"
     Get-WinEvent -FilterHashTable @{LogName=$eventLogName} `
         -ErrorAction SilentlyContinue | Select-Object Machinename, TimeCreated, ID, UserId,LevelDisplayName,ProviderName, `
-            @{n= "Message";e={ ($_.Message -Replace “`r`n|`r|`n”,” ”).Trim() }} 
+            @{n= "Message";e={ ($_.Message -Replace "`r`n|`r|`n"," ").Trim() }} 
 }
 
 #region gather Logs
